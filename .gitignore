@@ -1,0 +1,18 @@
+# Scripts
+*.sh
+
+# InteliJ
+.idea
+*.iml
+
+# Gradle Build Folder
+.gradle
+gradlew
+gradlew.bat
+build
+
+# Mac
+.DS_Store
+
+# Password File
+password.txt
