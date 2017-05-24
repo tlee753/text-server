@@ -1,79 +1,28 @@
-import java.io.*;
-import java.util.Map;
-
-import yahoofinance.Stock;
-import yahoofinance.YahooFinance;
-
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import com.tlee753.stockMarket.Messenger;
+import com.tlee753.stockMarket.User;
+import com.tlee753.userInterface.Mailer;
 
 
-public class Main extends Key {
+public class Main {
     public static void main(String[] args) {
+        // create user
+        User tyler = new User("tyler");
 
+        Messenger myMessenger = new Messenger(tyler);
+        myMessenger.generateMessage("all");
+        // update their stocks
+        // formulate message
 
-
-        // stock initialition
-        Stock apple, boeing, bankOfAmerica, costco, disney, electronicArts, intel, generalElectric, microsoft, netflix, nike,
-                nvidia, phillips66, schlumberger, royalDutchShell, tesla, verizon, visa, yahoo;
-        apple = boeing = bankOfAmerica = costco = disney = electronicArts = intel = generalElectric = microsoft = netflix = nike
-                = nvidia = phillips66 = schlumberger = royalDutchShell = tesla = verizon = visa = yahoo = null;
-        Map<String, Stock> stocks = null;
-
-        // get stock info
-        try {
-            String[] symbols = new String[] {"AAPL", "BA", "BAC", "COST", "DIS", "EA", "INTC", "GE", "MSFT",
-                    "NFLX", "NKE", "NVDA", "PSX", "SLB", /*"RDS.A",*/ "TSLA", "V", "VZ", "YHOO"};
-            stocks = YahooFinance.get(symbols); // single request
-            apple = stocks.get("AAPL");
-            boeing = stocks.get("BA");
-            bankOfAmerica = stocks.get("BAC");
-            costco = stocks.get("COST");
-            disney = stocks.get("DIS");
-            electronicArts = stocks.get("EA");
-            intel = stocks.get("INTC");
-            generalElectric = stocks.get("GE");
-            microsoft = stocks.get("MSFT");
-            netflix = stocks.get("NFLX");
-            nike = stocks.get("NKE");
-            nvidia = stocks.get("NVDA");
-            phillips66 = stocks.get("PSX");
-            schlumberger = stocks.get("SLB");
-            // royalDutchShell = stocks.get("RDS.A");
-            tesla = stocks.get("TSLA");
-            visa = stocks.get("V");
-            verizon = stocks.get("VZ");
-            yahoo = stocks.get("YHOO");
-        } catch (IOException e) {
-            System.out.println("Error retrieving Stock Information");
-            e.printStackTrace();
-        }
-
-        StringBuilder messageString = new StringBuilder(0);
-        // get stock prices
-        for (Map.Entry<String, Stock> stock : stocks.entrySet())
-        {
-            messageString.append(stock.getKey());
-            messageString.append(": ");
-            messageString.append(stock.getValue().getQuote().getPrice().toString());
-            messageString.append("\n");
-        }
-
-        // Refrence for stock methods
-        // http://financequotes-api.com/javadoc/yahoofinance/quotes/stock/StockQuote.html
-
-
+        // send message
+        Mailer myMailer = new Mailer();
+        myMailer.sendMessage(tyler.getAddress(), tyler.getFullName() + " Shares", myMessenger.getMessage());
+        // myMailer.sendMessage(tyler.getAddress(), myMessenger.getMessage());
+    }
 }
 
 /*
 * xTODO make a string building class (desired stock info)
-* TODO move elements to seperate methods
+* xTODO move elements to separate methods
 * TODO allow for command line arguments to be passed in for server side ease of use
 * TODO create a user object with stocks and how to contact them
 * TODO two way capability
