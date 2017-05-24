@@ -7,8 +7,6 @@
 
 # Gradle Build Folder
 .gradle
-gradlew
-gradlew.bat
 build
 
 # Mac
