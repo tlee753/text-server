@@ -6,17 +6,20 @@ import com.tlee753.userInterface.Mailer;
 public class Main {
     public static void main(String[] args) {
         // create user
-        User tyler = new User("tyler");
-
-        Messenger myMessenger = new Messenger(tyler);
-        myMessenger.generateMessage("all");
         // update their stocks
+        User tyler = new User("tyler");
+        User brandon = new User("brandon");
+
         // formulate message
+        Messenger bMessenger = new Messenger(brandon);
+        bMessenger.generateMessage("all");
+        Messenger tMessenger = new Messenger(tyler);
+        tMessenger.generateMessage("all");
 
         // send message
         Mailer myMailer = new Mailer();
-        myMailer.sendMessage(tyler.getAddress(), tyler.getFullName() + " Shares", myMessenger.getMessage());
-        // myMailer.sendMessage(tyler.getAddress(), myMessenger.getMessage());
+        myMailer.sendMessage(tyler.getAddress(), tyler.getFullName() + " Shares", tMessenger.getMessage());
+        // myMailer.sendMessage(brandon.getAddress(), brandon.getFullName() + " Shares", bMessenger.getMessage());
     }
 }
 

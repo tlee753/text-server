@@ -5,7 +5,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 
-public class Mailer extends Key {
+public class Mailer {
     public void sendMessage(String myRecipient, String mySubject, String myMessage) {
         Key myKey = new Key();
         String password = myKey.getPassword();

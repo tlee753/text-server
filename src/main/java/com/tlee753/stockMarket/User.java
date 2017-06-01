@@ -18,34 +18,37 @@ public class User {
             case "tyler":
                 fullName = "Tyler Lee";
                 address = "6787391126@vzwpix.com";
-                symbols = new String[] {"AAPL", "BA", "BAC", "COST", "DIS", "EA", "INTC", "GE", "MSFT",
+                symbols = new String[] {"AAPL", "ATVI", "BA", "BAC", "COST", "DIS", "EA", "INTC", "GE", "MSFT",
                         "NFLX", "NKE", "NVDA", "PSX", "SLB", "TSLA", "V", "VZ", "YHOO"};
-                try {
-                    stocks = YahooFinance.get(symbols);
-                } catch (IOException e) {
-                    System.out.println("Error retrieving Stock Information");
-                    e.printStackTrace();
-                }
+                break;
+            case "brandon":
+                fullName = "Brandon Lee";
+                address = "7705708727@vzwpix.com";
+                symbols = new String[] {"ATVI"};
                 break;
             default:
                 System.out.println("User not found");
                 // user not found in users.json...
                 System.exit(0);
         }
+
+        try {
+            stocks = YahooFinance.get(symbols);
+        } catch (IOException e) {
+            System.out.println("Error retrieving Stock Information");
+            e.printStackTrace();
+        }
     }
 
     public String getFullName() {
         return fullName;
     }
-
     public String getAddress() {
         return address;
     }
-
     public String[] getSymbols() {
         return symbols;
     }
-
     public Map<String, Stock> getStocks() {
         return stocks;
     }
